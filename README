@@ -1,10 +1,12 @@
 # Software_engineering_group_project
 
 Files:
-push.sh - commands I use to push the program up
-
-The rest are the java files of our project
+	push.sh - commands I use to push the program up
+	Main.java - main code
+	GUI_abstract.java - GUI.java's abstract
+	GUI.java - Contains 2 classes: GUI, GUI_worker
+		Since GUI is asynchronous, GUI sends out GUI_worker to change the GUI, and waits for return value
 
 To compile & run: 
-javac Main.java
-java Main
+	javac Main.java
+	java Main
