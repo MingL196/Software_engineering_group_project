@@ -1,1 +1,10 @@
 # Software_engineering_group_project
+
+Files:
+push.sh - commands I use to push the program up
+
+The rest are the java files of our project
+
+To compile & run: 
+javac Main.java
+java Main
