@@ -12,7 +12,7 @@ class Game {
 	private int currentPlayer;
 	private int round;
 	private int[] points; // Note: I don't think we need to reset points after each round, so one array is enough
-	private int[] free;
+	private int[] free; // Question: Does free tokens reset each round?
 
 	public Game(){
 		gui = new GUI_text_version();
