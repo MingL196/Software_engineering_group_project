@@ -7,7 +7,7 @@ import static javax.swing.GroupLayout.Alignment.*;
 import java.util.concurrent.locks.*;
 
 //		try { Thread.sleep(1000); } catch (Exception e) {}
-public class GUI extends GUI_abstract {
+public class GUI_interface extends GUI_abstract {
 	GUI_worker g = new GUI_worker();
 
 	public int get_n_players(){
@@ -27,20 +27,10 @@ public class GUI extends GUI_abstract {
 		return ret;
 	}
 
-	public String get_settings_file(){return "";}
+//	public String get_settings_file(){return "";}
 
-	public void spin(String[] choices, int outcome){return;}
+//	public void spin(String[] choices, int outcome){return;}
 
-	public int[] pick_question(boolean[][] available_choices){
-		int[] choice = new int[2];
-		return choice;
-	}
-
-	public boolean reveal_questions(String input_text){return true;}
-
-	public boolean use_token_prompt(){return true;}
-
-	public void show_stats(int[] player_scores, int[] player_tokens, int rounds_counter){}
 }
 
 class GUI_worker extends JFrame {
