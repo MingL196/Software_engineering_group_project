@@ -27,9 +27,9 @@ public class GUI_interface extends GUI_abstract {
 		return ret;
 	}
 
-//	public String get_settings_file(){return "";}
+	public String get_settings_file(){return "";}
 
-//	public void spin(String[] choices, int outcome){return;}
+	public void spin(String[] choices, int outcome){return;}
 
 }
 
