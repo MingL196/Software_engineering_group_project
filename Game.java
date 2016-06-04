@@ -24,9 +24,18 @@ class Game {
 		while(!done){
 			int outcome = spin();
 			switch(outcome){
-				case 0: category1(); break;
-				case 1: category2(); break;
-				// ...
+				case 0: category(0); break;
+				case 1: category(1); break;
+				case 2: category(2); break;
+				case 3: category(3); break;
+				case 4: category(4); break;
+				case 5: category(5); break;
+				case 6: lose(); break;
+				case 7: free(); break;
+				case 8: bankrupt(); break;
+				case 9: player_choice(); break;
+				case 10: opponent_choice(); break;
+				case 11: spin_again(); break;
 			}
 			check_round_finished();
 		}
@@ -34,15 +43,20 @@ class Game {
 	}
 
 	private void init(){
-		numberPlayers = gui.get_n_players();
+		numberPlayers = 0;
+		while(numberPlayers <=0){ numberPlayers = gui.get_n_players(); }
 		// ...
 	}
 
 	private int spin(){ return 1; }
 
-	private void category1(){}
-	private void category2(){}
-	// ...
+	private void category(int i){}
+	private void lose(){}
+	private void free(){}
+	private void bankrupt(){}
+	private void player_choice(){}
+	private void opponent_choice(){}
+	private void spin_again(){}
 
 	private void check_round_finished(){ done=true; }
 
