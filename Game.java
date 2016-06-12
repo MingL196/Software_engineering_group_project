@@ -15,8 +15,8 @@ class Game {
 	private int[] free; // Question: Does free tokens reset each round?
 
 	public Game(){
-		gui = new GUI_text_version();
-//		gui = new GUI_interface();
+//		gui = new GUI_text_version();
+		gui = new GUI_interface();
 	}
 
 	public void start(){
@@ -24,18 +24,13 @@ class Game {
 		while(!done){
 			int outcome = spin();
 			switch(outcome){
-				case 0: category(0); break;
-				case 1: category(1); break;
-				case 2: category(2); break;
-				case 3: category(3); break;
-				case 4: category(4); break;
-				case 5: category(5); break;
-				case 6: lose(); break;
-				case 7: free(); break;
-				case 8: bankrupt(); break;
-				case 9: player_choice(); break;
-				case 10: opponent_choice(); break;
-				case 11: spin_again(); break;
+				case 0: lose(); break;
+				case 1: free(); break;
+				case 2: bankrupt(); break;
+				case 3: player_choice(); break;
+				case 4: opponent_choice(); break;
+				case 5: spin_again(); break;
+				default: category(outcome - 6); break;
 			}
 			check_round_finished();
 		}
