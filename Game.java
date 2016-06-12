@@ -40,6 +40,7 @@ class Game {
 	private void init(){
 		numberPlayers = 0;
 		while(numberPlayers <=0){ numberPlayers = gui.get_n_players(); }
+		System.out.println(numberPlayers);
 		// ...
 	}
 
