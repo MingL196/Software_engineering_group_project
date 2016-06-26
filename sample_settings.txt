@@ -1,83 +1,83 @@
 Category 1
-Question 1_1
-Question 1_2
-Question 1_3
-Question 1_4
-Question 1_5
-
+Question 1_1	Answer 1_1
+Question 1_2	Answer 1_2
+Question 1_3	Answer 1_3
+Question 1_4	Answer 1_4
+Question 1_5	Answer 1_5
+	
 Category 2
-Question 2_1
-Question 2_2
-Question 2_3
-Question 2_4
-Question 2_5
-
+Question 2_1	Answer 2_1
+Question 2_2	Answer 2_2
+Question 2_3	Answer 2_3
+Question 2_4	Answer 2_4
+Question 2_5	Answer 2_5
+	
 Category 3
-Question 3_1
-Question 3_2
-Question 3_3
-Question 3_4
-Question 3_5
-
+Question 3_1	Answer 3_1
+Question 3_2	Answer 3_2
+Question 3_3	Answer 3_3
+Question 3_4	Answer 3_4
+Question 3_5	Answer 3_5
+	
 Category 4
-Question 4_1
-Question 4_2
-Question 4_3
-Question 4_4
-Question 4_5
-
+Question 4_1	Answer 4_1
+Question 4_2	Answer 4_2
+Question 4_3	Answer 4_3
+Question 4_4	Answer 4_4
+Question 4_5	Answer 4_5
+	
 Category 5
-Question 5_1
-Question 5_2
-Question 5_3
-Question 5_4
-Question 5_5
-
+Question 5_1	Answer 5_1
+Question 5_2	Answer 5_2
+Question 5_3	Answer 5_3
+Question 5_4	Answer 5_4
+Question 5_5	Answer 5_5
+	
 Category 6
-Question 6_1
-Question 6_2
-Question 6_3
-Question 6_4
-Question 6_5
-
+Question 6_1	Answer 6_1
+Question 6_2	Answer 6_2
+Question 6_3	Answer 6_3
+Question 6_4	Answer 6_4
+Question 6_5	Answer 6_5
+	
 Category 7
-Question 7_1
-Question 7_2
-Question 7_3
-Question 7_4
-Question 7_5
-
+Question 7_1	Answer 7_1
+Question 7_2	Answer 7_2
+Question 7_3	Answer 7_3
+Question 7_4	Answer 7_4
+Question 7_5	Answer 7_5
+	
 Category 8
-Question 8_1
-Question 8_2
-Question 8_3
-Question 8_4
-Question 8_5
-
+Question 8_1	Answer 8_1
+Question 8_2	Answer 8_2
+Question 8_3	Answer 8_3
+Question 8_4	Answer 8_4
+Question 8_5	Answer 8_5
+	
 Category 9
-Question 9_1
-Question 9_2
-Question 9_3
-Question 9_4
-Question 9_5
-
+Question 9_1	Answer 9_1
+Question 9_2	Answer 9_2
+Question 9_3	Answer 9_3
+Question 9_4	Answer 9_4
+Question 9_5	Answer 9_5
+	
 Category 10
-Question 10_1
-Question 10_2
-Question 10_3
-Question 10_4
-Question 10_5
-
+Question 10_1	Answer 10_1
+Question 10_2	Answer 10_2
+Question 10_3	Answer 10_3
+Question 10_4	Answer 10_4
+Question 10_5	Answer 10_5
+	
 Category 11
-Question 11_1
-Question 11_2
-Question 11_3
-Question 11_4
-Question 11_5
-
+Question 11_1	Answer 11_1
+Question 11_2	Answer 11_2
+Question 11_3	Answer 11_3
+Question 11_4	Answer 11_4
+Question 11_5	Answer 11_5
+	
 Category 12
-Question 12_1
-Question 12_2
-Question 12_3
-Question 12_4
-Question 12_5
+Question 12_1	Answer 12_1
+Question 12_2	Answer 12_2
+Question 12_3	Answer 12_3
+Question 12_4	Answer 12_4
+Question 12_5	Answer 12_5
