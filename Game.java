@@ -41,6 +41,8 @@ class Game {
 		numberPlayers = 0;
 		while(numberPlayers <=0){ numberPlayers = gui.get_n_players(); }
 		System.out.println(numberPlayers);
+		String[] temp = {"LOSE","FREE","BANKRUPT","PLAYER'S CHOICE","OPPONENT'S CHOICE", "SPIN AGAIN"};
+		gui.spin(temp,2);
 		// ...
 	}
 

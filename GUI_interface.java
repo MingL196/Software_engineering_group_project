@@ -18,18 +18,30 @@ public class GUI_interface extends GUI_abstract {
 		});
 
 		g.lock.lock(); try{
-			g.ret = 0;
-			while(g.ret ==0 ){g.returned.await();}
-			n_players = g.int_ret;
+			g.returned = false;
+			while(!g.returned){g.interface_wait.await();}
+			n_players = g.int_share;
 		} catch(InterruptedException e){
 		} finally{g.lock.unlock();}
 
 		return n_players;
 	}
 
-	public String get_settings_file(){return "";}
+	public String get_settings_file(){
+		return "";
+	}
 
-	public void spin(String[] choices, int outcome){
+	private String[] choices; private int outcome;
+	public void spin(String[] c, int o){
+		choices=c; outcome=o;
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() { g.spin(choices,outcome); }
+		});
+		g.lock.lock(); try{
+			g.returned = false;
+			while(!g.returned){g.interface_wait.await();}
+		} catch(InterruptedException e){
+		} finally{g.lock.unlock();}
 		return;
 	}
 
@@ -37,9 +49,9 @@ public class GUI_interface extends GUI_abstract {
 
 class GUI_worker extends JFrame {
 	public ReentrantLock lock = new ReentrantLock();
-	public Condition returned = lock.newCondition();
-	public int ret = 0;
-	public int int_ret;
+	public Condition interface_wait = lock.newCondition();
+	public boolean returned = false;
+	public int int_share;
 
 	private JFrame frame;
 	private Container pane;
@@ -68,13 +80,14 @@ class GUI_worker extends JFrame {
 	private JTextField n_text_field = new JTextField("1");
 	private JButton continue_button = new JButton("Continue");
 	public void get_n_players(){
+		frame.setContentPane(pane);
 		pane.removeAll();
 		continue_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				lock.lock(); try{
-					ret = 1;
-					int_ret = Integer.parseInt(n_text_field.getText());
-					returned.signal();
+					int_share = Integer.parseInt(n_text_field.getText());
+					returned = true;
+					interface_wait.signal();
 				} catch(NumberFormatException n){
 				} finally{lock.unlock();}
 			}
@@ -98,8 +111,37 @@ class GUI_worker extends JFrame {
 		return;
 	}
 
+	private SpinPanel s_panel = new SpinPanel();
+	private int lastoutcome = 0;
+	public void spin(String[] choices, int outcome){
+		pane.removeAll();
+		frame.setContentPane(s_panel);
+		Rectangle r = frame.getBounds();
+		s_panel.set_info( r.height, r.width);
 
+		s_panel.revalidate();
+		lock.lock(); try{
+			returned = true;
+			interface_wait.signal();
+		} finally{lock.unlock();}
+		return;
+	}
+	class SpinPanel extends JPanel {
+		int height; int width;
+		SpinPanel() {}
+		public void set_info(int w, int h){ 
+			height=h; width=w; 
+			// repaint();
+		}
+
+		@Override
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+
+			g.drawRect(25, 25, 200, 200);
+			g.drawString("BLAH", 100, 100);
+		}
+	}
 }
-
 
 
