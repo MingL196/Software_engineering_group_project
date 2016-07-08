@@ -98,14 +98,13 @@ class Game {
 		}
 		int daily_n = 0;
 		// get daily wager
-		int pointsleft = 0;
-		for(int i=0; i<questions.length; i++){
-		for(int j=questions[i]; j<5; j++){
-			pointsleft += 100*(round+1)*(questions[cat]+1);
-		}}
-
 		if(daily_double){
 			if(points[round][currentPlayer] == 0){
+				int pointsleft = 0;
+				for(int i=0; i<questions.length; i++){
+				for(int j=questions[i]; j<5; j++){
+					pointsleft += 100*(round+1)*(questions[cat]+1);
+				}}
 				while(daily_n < 0 || daily_n > pointsleft){ 
 					daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(pointsleft)+"):"); 
 				}
