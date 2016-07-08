@@ -25,13 +25,10 @@ class Game {
 	public Game(int i){
 		if(i==0){ gui = new GUI();}
 		else {gui = new UI();}
-//		gui = new UI();
 	}
 
 	public void start(){
 		init();
-//		gui.spin(current_spin_sectors,2);
-//System.out.println("DONE");
 		while(!endGame){
 			gui.show_info(round, currentPlayer, message, points, free, spin_counter);
 			message = "";
