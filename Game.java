@@ -98,9 +98,21 @@ class Game {
 		}
 		int daily_n = 0;
 		// get daily wager
+		int pointsleft = 0;
+		for(int i=0; i<questions.length; i++){
+		for(int j=questions[i]; j<5; j++){
+			pointsleft += 100*(round+1)*(questions[cat]+1);
+		}}
+
 		if(daily_double){
-			while(daily_n <=0 || daily_n > (points[round][currentPlayer])){ 
-				daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(points[round][currentPlayer])+"):"); 
+			if(points[round][currentPlayer] == 0){
+				while(daily_n < 0 || daily_n > pointsleft){ 
+					daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(pointsleft)+"):"); 
+				}
+			} else {
+				while(daily_n < 0 || daily_n > (points[round][currentPlayer])){ 
+					daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(points[round][currentPlayer])+"):"); 
+				}
 			}
 		}
 		// ask question
@@ -149,6 +161,7 @@ class Game {
 		while(invalid){
 			n=gui.choose_category("Player "+(currentPlayer+1)+" Choose category: ", db.get_categories(round));
 			if(1 <= n && n <= 6){invalid = false;}
+			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
 		}
 		category(n-1);
@@ -160,6 +173,7 @@ class Game {
 		while(invalid){
 			n=gui.choose_category(("Player "+((currentPlayer+1)%numberPlayers+1)+" Choose category for Player "+(currentPlayer+1)+": "), db.get_categories(round));
 			if(1 <= n && n <= 6){invalid = false;}
+			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
 		}
 		category(n-1);
