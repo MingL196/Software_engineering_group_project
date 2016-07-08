@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-jar cfm triviopoly.jar manifest.mf *.class *.java README
+rm -rf *.class; rm -rf *.jar
+javac Main.java
+jar cfm triviopoly.jar manifest.mf *.class *.java default_settings.txt README

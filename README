@@ -2,12 +2,54 @@
 
 Files:
 	push.sh - commands I use to push the program up
-	Main.java - main code
+
+	Main.java - start code
+
+	Game.java - main logic
+
+	DB_abstract.java - db abstract
+	DB_simple.java	- db logic
+
 	GUI_abstract.java - GUI.java's abstract
-	GUI.java - Contains 2 classes: GUI, GUI_worker
+	UI.java - main text file println commmands
+	GUI.java - Contains 2 classes: GUI, GUI_worker	- INCOMPLETE
 		Since GUI is asynchronous, GUI sends out GUI_worker to change
 		the GUI, and waits for return value
 
+	default_settings.txt - default settings
+
 To compile & run: 
-	javac Main.java
-	java Main
+	./makejar.sh
+	java -jar triviopoly.jar
+
+Change Log:
+7-6-2016
+Cleanup text version; merge Steve into mine:
+	make database class
+	change class names
+		GUI_interface.java is now GUI.java
+		GUI_text_version.java is now UI.java
+
+	move some of the init to top
+	make settings file parser (Steve's did not allow change of categories between rounds).
+
+	After considering GUI further, decided to use table to show player info
+		should be ok to show all player's info each time.
+		as such, main logic can be simplified
+
+	There is no need to have a two dimentional array for questions
+		reset at new round instead
+
+	Changed opponent's choice so that it isn't 
+		the current player picking a category for the opponent
+		but rather
+		the opponent       picking a category for the current player
+	Also, be careful about currentPlayer+1
+
+	Changed ending to allow multiple winners
+
+7-7-2016
+	changed check category finished
+	clear message
+
+TODO: GUI, daily double
