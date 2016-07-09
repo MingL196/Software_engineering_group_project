@@ -18,9 +18,14 @@ Files:
 
 	default_settings.txt - default settings
 
-To compile & run: 
+To compile: 
 	./makejar.sh
+To run GUI:
 	java -jar triviopoly.jar
+	or, if you are on Mac/Windows, double click on triviopoly.jar
+To run text version
+	java -jar triviopoly.jar 1
+	
 
 Change Log:
 7-6-2016
