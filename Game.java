@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 class Game {
-	public int timer = 30; // 10 seconds
+	public int timer = 30; // seconds
 	public int spins_per_round = 50;
 	private String[] spin_sectors_header = {"LOSE TURN","FREE TURN","BANKRUPT","PLAYER'S CHOICE","OPPONENT'S CHOICE", "SPIN AGAIN"};
 
