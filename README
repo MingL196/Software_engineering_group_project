@@ -59,3 +59,7 @@ Cleanup text version; merge Steve into mine:
 7-8-2016
 	Fixed daily double for 0 money player, opponent's choice validation
 	finished GUI
+7-11-2016
+	Moved continue button of Spin to the bottom
+	show_board added small message
+	add text box to answer

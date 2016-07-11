@@ -21,6 +21,7 @@ public class GUI extends GUI_abstract {
 	String[] categories;
 	int[] questions;
 	int timer;
+	boolean timer_returned = false;
 
 	public int get_n(String message){
 		m = message;
@@ -167,16 +168,20 @@ public class GUI extends GUI_abstract {
 		g.s_panel.stop();
 		return;
 	}
-	public boolean timer_returned = false;
 	public void ask_question(int t, String question){
 		m = question; timer = t;
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() { g.ask_question(timer,m); }
+		});
 
 		g.lock.lock(); try{
 			g.returned = false;
 			while(!g.returned){
 				javax.swing.SwingUtilities.invokeLater(new Runnable() {
-					public void run() { g.ask_question(timer,m); }
+					public void run() { g.update_ask_question(timer,m); }
 				});
+
 				timer_returned = false;
 				Thread sec_timer = new Thread(new GUI_Timer(this));
 				while(!(timer_returned || g.returned)){
@@ -214,7 +219,8 @@ class GUI_worker extends JFrame {
 
 	private JLabel message_label = new JLabel("<html><h1>Number of Players: </h1></html>");
 	private JLabel message_label2 = new JLabel("<html><h1> </h1></html>");
-	private JTextField get_n_text_filed = new JTextField("1");
+	private JTextField get_n_text_field = new JTextField("1");
+	private JTextField textfield = new JTextField("");
 	private JButton continue_button = new JButton("Continue");
 
 	private JButton y_button = new JButton("Yes");
@@ -254,7 +260,7 @@ class GUI_worker extends JFrame {
 		continue_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				lock.lock(); try{
-					int_share = Integer.parseInt(get_n_text_filed.getText());
+					int_share = Integer.parseInt(get_n_text_field.getText());
 					returned = true;
 					interface_wait.signal();
 				} catch(NumberFormatException n){
@@ -265,7 +271,7 @@ class GUI_worker extends JFrame {
 		answer_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				lock.lock(); try{
-					int_share = Integer.parseInt(get_n_text_filed.getText());
+					int_share = Integer.parseInt(get_n_text_field.getText());
 					returned = true;
 					interface_wait.signal();
 				} catch(NumberFormatException n){
@@ -391,7 +397,7 @@ class GUI_worker extends JFrame {
 		pane.add(message_label, c);
 		c.gridx = 0;
 		c.gridy = 1;
-		pane.add(get_n_text_filed, c);
+		pane.add(get_n_text_field, c);
 		c.gridx = 0;
 		c.gridy = 2;
 		pane.add(continue_button, c);
@@ -540,10 +546,19 @@ class GUI_worker extends JFrame {
 		pane.repaint();
 		return;
 	}
+	public boolean timer_returned = false;
+	public void update_ask_question(int timer, String message){
+		message_label.setText("<html><h1>"+message+"</h1></html>");
+		message_label2.setText("<html><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time left: "+timer+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></html>");
+		pane.repaint();
+	}
 	public void ask_question(int timer, String message){
+		Font font = new Font("TimesRoman", Font.BOLD, 20);
+		textfield.setText("");
+		textfield.setFont(font);
 		message = message.replace("\n", "<p>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
-		message_label2.setText("<html><h1>Time left:"+timer+"</h1></html>");
+		message_label2.setText("<html><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time left: "+timer+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></html>");
 		frame.setContentPane(pane);
 		pane.revalidate();
 		pane.removeAll();
@@ -551,7 +566,7 @@ class GUI_worker extends JFrame {
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		c.fill = GridBagConstraints.VERTICAL;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		pane.add(message_label, c);
@@ -560,8 +575,10 @@ class GUI_worker extends JFrame {
 		pane.add(message_label2, c);
 		c.gridx = 0;
 		c.gridy = 2;
+		pane.add(textfield, c);
+		c.gridx = 0;
+		c.gridy = 3;
 		pane.add(answer_button, c);
-
 		pane.repaint();
 		return;
 	}
@@ -613,7 +630,7 @@ class GUI_worker extends JFrame {
 	}
 
 	public void show_board(int round, int category, String[] categories, int[] questions){
-		message_label.setText("<html><h1>Board:</h1></html>");
+		message_label.setText("<html><h1>Board:</h1><p>Your Category: "+categories[category]+"</html>");
 		String[] p = new String[6];
 		for(int i=0; i<p.length; i++){p[i]="_";}
 		p[category] = "<html><b>Category Picked</b></html>";
@@ -685,8 +702,8 @@ class GUI_worker extends JFrame {
 
 		public void init(String[] ch, Color[] co, int o, int w, int h){ 
 			height = h; width = w;
-			this.setLayout(new FlowLayout(FlowLayout.LEFT));
-			this.add(continue_button);
+			this.setLayout(new BorderLayout(5,5));
+			this.add(continue_button, BorderLayout.PAGE_END);
 			imageOffScreen = createImage(width, height);
 			graphicsOffScreen = imageOffScreen.getGraphics();
 			choices = ch; colors = co; outcome = o;
