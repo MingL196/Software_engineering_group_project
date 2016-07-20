@@ -46,13 +46,13 @@ public class UI extends GUI_abstract {
 		return;
 	}
 
-	public void show_info(int round, int currentPlayer, String message, int[][] points, int[] free, int spin_counter){
+	public void show_info(String[] player_names, int round, int currentPlayer, String message, int[][] points, int[] free, int spin_counter){
 		System.out.println("\n==============================================");
 		System.out.println(message);
 		System.out.println("Round: "+(round+1)+"  Spins left: "+spin_counter+"  Player "+(currentPlayer+1)+"'s turn");
 		System.out.printf("%10s %5s: %15s %15s %15s\n", "Player ","#", "Round 1 Points", "Round 2 Points", "Free tokens");
 		for(int i=0; i<points[0].length; i++){
-			System.out.printf("%10s %5d: %15d %15d %15d\n", "Player ",(i+1), points[0][i], points[1][i], free[i]);
+			System.out.printf("%10s %5d: %15d %15d %15d\n", player_names[i],(i+1), points[0][i], points[1][i], free[i]);
 		}
 	}
 

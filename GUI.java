@@ -125,11 +125,12 @@ public class GUI extends GUI_abstract {
 		} finally{g.lock.unlock();}
 	}
 
-	public void show_info(int r, int c, String message, int[][] p, int[] f, int s){
-		round = r; currentPlayer = c; m = message; points = p; free = f; spin_counter = s;
+	String[] player_name;
+	public void show_info(String[] name, int r, int c, String message, int[][] p, int[] f, int s){
+		player_name=name; round = r; currentPlayer = c; m = message; points = p; free = f; spin_counter = s;
 		m = message;
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() { g.show_info(round,currentPlayer,m,points,free,spin_counter); }
+			public void run() { g.show_info(player_name, round,currentPlayer,m,points,free,spin_counter); }
 		});
 
 		g.lock.lock(); try{
@@ -582,7 +583,7 @@ class GUI_worker extends JFrame {
 		pane.repaint();
 		return;
 	}
-	public void show_info(int round, int currentPlayer, String message, int[][] points, int[] free, int spin_counter){
+	public void show_info(String[] player_name, int round, int currentPlayer, String message, int[][] points, int[] free, int spin_counter){
 		message = message.replace("\n", "<p>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 
@@ -592,13 +593,14 @@ class GUI_worker extends JFrame {
 		String[] columnNames = {"Player ","#", "Round 1 Points", "Round 2 Points", "Free tokens"};
 		Object[][] data = new Object[(points[0].length)][columnNames.length];
 		for(int i=0; i<points[0].length; i++){
-			data[i][0] = "Player";
+			data[i][0] = player_name[i];
 			data[i][1] = i;
 			data[i][2] = points[0][i];
 			data[i][3] = points[1][i];
 			data[i][4] = free[i];
 		}
 		table = new JTable(data, columnNames);
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 
@@ -610,7 +612,8 @@ class GUI_worker extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = c.weighty = 0.8;
+//		c.weightx = c.weighty = 1;
+		c.weightx = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 		pane.add(message_label, c);
@@ -644,6 +647,7 @@ class GUI_worker extends JFrame {
 		}}
 
 		table = new JTable(data, p);
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 
@@ -655,7 +659,8 @@ class GUI_worker extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = c.weighty = 0.8;
+//		c.weightx = c.weighty = 1;
+		c.weightx = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 		pane.add(message_label, c);
@@ -757,5 +762,6 @@ class GUI_worker extends JFrame {
 		}
 	}
 }
+
 
 

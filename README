@@ -63,3 +63,6 @@ Cleanup text version; merge Steve into mine:
 	Moved continue button of Spin to the bottom
 	show_board added small message
 	add text box to answer
+7-19-2016
+	If a category is empty, and a player chooses that category, the player will get a message "Choose a different category"
+	Add message at the end of spin in case player decides to skip animation.

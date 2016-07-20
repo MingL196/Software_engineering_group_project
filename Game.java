@@ -15,12 +15,16 @@ class Game {
 	private int currentPlayer = 0;
 	private int round = 0;
 	private int[] questions = new int[6]; // number of questions answered in each category
+	private int[][] daily = new int[3][2]; // [0 = round 1   1,2 = round 2][0 = category  1 = row]
 	String message = "";
 	String[] current_spin_sectors;
+
 	private int numberPlayers;
+	private int numberAI;
+	private boolean[] is_AI; //[player]
+	private String[] player_names; //[player]
 	private int[][] points; //[round][player]
 	private int[] free; // [player]
-	private int[][] daily = new int[3][2]; // [0 = round 1   1,2 = round 2][0 = category  1 = row]
 
 	public Game(int i){
 		if(i==0){ gui = new GUI();}
@@ -30,7 +34,7 @@ class Game {
 	public void start(){
 		init();
 		while(!endGame){
-			gui.show_info(round, currentPlayer, message, points, free, spin_counter);
+			gui.show_info(player_names, round, currentPlayer, message, points, free, spin_counter);
 			message = "";
 			int outcome = spin();
 			switch(outcome){
@@ -55,7 +59,11 @@ class Game {
 		}
 		// get number of players
 		numberPlayers = 0;
-		while(numberPlayers <=0){ numberPlayers = gui.get_n("Please enter the number of players: "); }
+		while(numberPlayers <=0){ numberPlayers = gui.get_n("Please enter the number of human controlled players: "); }
+		// get number of AI
+		numberAI = -1;
+		while(numberAI <0){ numberAI = gui.get_n("Please enter the number of AI controlled players: "); }
+		numberPlayers += numberAI;
 		// option: default or custom settings file
 		int mode = gui.yes_no_prompt("Do you want to use the default settings file?");
 		boolean ok = false; while(!ok){
@@ -68,6 +76,12 @@ class Game {
 			gui.message(errors);
 		}
 		// initialize class variables
+		is_AI = new boolean[numberPlayers]; 
+		player_names = new String[numberPlayers]; 
+		for(int i=0; i<is_AI.length; i++){
+			if(i<numberAI){ is_AI[i]=true; player_names[i]="AI"; } 
+			else { is_AI[i]=false;player_names[i]="Player"; }
+		}
 		points = new int[2][numberPlayers];
 		free = new int[numberPlayers];
 		current_spin_sectors = concatenate(spin_sectors_header, db.get_categories(round));
@@ -77,6 +91,7 @@ class Game {
 	private int spin(){
 		int result = (int) (Math.random()*current_spin_sectors.length) % current_spin_sectors.length; 
 		gui.spin(current_spin_sectors,result);
+		gui.message(current_spin_sectors[result]);
 		spin_counter--;
 		return result;
 	}
@@ -134,10 +149,13 @@ class Game {
 	}
 
 	private void lose(){
-		if(free[currentPlayer] == 0 || gui.yes_no_prompt("Do you want to use a token?") == 0){
-			gui.message("Lose a turn"); nextplayer(); return;
+		if(free[currentPlayer] == 0){
+			gui.message("No token. Lose a turn"); nextplayer(); return;
+		} else if(gui.yes_no_prompt("Do you want to use a token?") == 0){
+			gui.message("You chose not to use a token. Lose a turn"); nextplayer(); return;
 		}
 		gui.message("Spin again");
+		return;
 	}
 
 	private void free(){ 
@@ -159,7 +177,7 @@ class Game {
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
-			gui.message("Please choose a different category");
+			if(invalid){gui.message("Please choose a different category");}
 		}
 		category(n-1);
 	}
@@ -172,7 +190,7 @@ class Game {
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
-			gui.message("Please choose a different category");
+			if(invalid){gui.message("Please choose a different category");}
 		}
 		category(n-1);
 	}
@@ -221,7 +239,7 @@ class Game {
 			for(int i=0; i<(maxplayers.size()-1);i++){m+= maxplayers.get(i)+", ";}
 			m+= "and "+(maxplayers.get(maxplayers.size()-1))+" won with "+sum+"points!";
 		}
-		gui.show_info(round, currentPlayer, m, points, free, spin_counter);
+		gui.show_info(player_names, round, currentPlayer, m, points, free, spin_counter);
 	}
 
 	/////////////////////////////////////////////
