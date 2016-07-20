@@ -41,6 +41,24 @@ public class GUI extends GUI_abstract {
 		return int_return;
 	}
 
+	public String get_s(String message){
+		m = message;
+		String s_return="";
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() { g.get_s(m); }
+		});
+
+		g.lock.lock(); try{
+			g.returned = false;
+			while(!g.returned){g.interface_wait.await();}
+			s_return = g.string_share;
+		} catch(InterruptedException e){
+		} finally{g.lock.unlock();}
+
+		return s_return;
+	}
+
 	public int yes_no_prompt(String message){
 		m = message;
 		int int_return=0;
@@ -113,6 +131,7 @@ public class GUI extends GUI_abstract {
 	}
 
 	public void message(String message){
+//		if(message==null){message="";}
 		m = message;
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() { g.message(m); }
@@ -221,8 +240,10 @@ class GUI_worker extends JFrame {
 	private JLabel message_label = new JLabel("<html><h1>Number of Players: </h1></html>");
 	private JLabel message_label2 = new JLabel("<html><h1> </h1></html>");
 	private JTextField get_n_text_field = new JTextField("1");
+	private JTextField get_s_text_field = new JTextField();
 	private JTextField textfield = new JTextField("");
 	private JButton continue_button = new JButton("Continue");
+	private JButton continue_s_button = new JButton("Continue");
 
 	private JButton y_button = new JButton("Yes");
 	private JButton n_button = new JButton("No");
@@ -269,10 +290,21 @@ class GUI_worker extends JFrame {
 			}
 		});
 
+		continue_s_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { 
+				lock.lock();
+				string_share = get_s_text_field.getText();
+				returned = true;
+				interface_wait.signal();
+				lock.unlock();
+			}
+		});
+
+
 		answer_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				lock.lock(); try{
-					int_share = Integer.parseInt(get_n_text_field.getText());
+		//			int_share = Integer.parseInt(get_n_text_field.getText());
 					returned = true;
 					interface_wait.signal();
 				} catch(NumberFormatException n){
@@ -406,6 +438,31 @@ class GUI_worker extends JFrame {
 		pane.repaint();
 		return;
 	}
+	public void get_s(String message){
+		message = message.replace("\n", "<p>");
+		message_label.setText("<html><h1>"+message+"</h1></html>");
+		frame.setContentPane(pane);
+		pane.revalidate();
+		pane.removeAll();
+
+		pane.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		pane.add(message_label, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		pane.add(get_s_text_field, c);
+		c.gridx = 0;
+		c.gridy = 2;
+		pane.add(continue_s_button, c);
+
+		pane.repaint();
+		return;
+	}
+
 
 	public void yes_no_prompt(String message){
 		message = message.replace("\n", "<p>");
@@ -587,14 +644,14 @@ class GUI_worker extends JFrame {
 		message = message.replace("\n", "<p>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 
-		String m2 = "Round: "+(round+1)+"&nbsp;&nbsp;&nbsp;&nbsp;Spins left: "+spin_counter+"&nbsp;&nbsp;&nbsp;&nbsp;Player "+(currentPlayer+1)+"'s turn";
+		String m2 = "Round: "+(round+1)+"&nbsp;&nbsp;&nbsp;&nbsp;Spins left: "+spin_counter+"&nbsp;&nbsp;&nbsp;&nbsp;"+player_name[currentPlayer]+" "+(currentPlayer+1)+"'s turn";
 		message_label2.setText("<html>"+m2+"</html>");
 
 		String[] columnNames = {"Player ","#", "Round 1 Points", "Round 2 Points", "Free tokens"};
 		Object[][] data = new Object[(points[0].length)][columnNames.length];
 		for(int i=0; i<points[0].length; i++){
 			data[i][0] = player_name[i];
-			data[i][1] = i;
+			data[i][1] = i+1;
 			data[i][2] = points[0][i];
 			data[i][3] = points[1][i];
 			data[i][4] = free[i];

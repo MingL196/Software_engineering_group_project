@@ -19,6 +19,11 @@ public class UI extends GUI_abstract {
 		}
 		return k;
 	}
+	public String get_s(String message){
+			System.out.println("\n"+message);
+			String s = input.nextLine().trim();
+		return s;
+	}
 
 	public int yes_no_prompt(String message){
 		System.out.println("\n"+message+" (y/n)");

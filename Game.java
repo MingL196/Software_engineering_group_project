@@ -64,6 +64,19 @@ class Game {
 		numberAI = -1;
 		while(numberAI <0){ numberAI = gui.get_n("Please enter the number of AI controlled players: "); }
 		numberPlayers += numberAI;
+		// initialize class variables
+		is_AI = new boolean[numberPlayers]; 
+		player_names = new String[numberPlayers]; 
+		for(int i=0; i<is_AI.length; i++){
+			if(i<numberAI){ is_AI[i]=true; player_names[i]="AI"; } 
+			else { is_AI[i]=false;player_names[i]="Player"; }
+		}
+		points = new int[2][numberPlayers];
+		free = new int[numberPlayers];
+		// option: rename players
+		if(gui.yes_no_prompt("Do you want to rename the players?")==1){
+			for(int i=0; i<player_names.length;i++){player_names[i]=gui.get_s("Please rename "+player_names[i]+" "+(i+1));}
+		}
 		// option: default or custom settings file
 		int mode = gui.yes_no_prompt("Do you want to use the default settings file?");
 		boolean ok = false; while(!ok){
@@ -75,15 +88,6 @@ class Game {
 			if(errors.equals("")){break;}
 			gui.message(errors);
 		}
-		// initialize class variables
-		is_AI = new boolean[numberPlayers]; 
-		player_names = new String[numberPlayers]; 
-		for(int i=0; i<is_AI.length; i++){
-			if(i<numberAI){ is_AI[i]=true; player_names[i]="AI"; } 
-			else { is_AI[i]=false;player_names[i]="Player"; }
-		}
-		points = new int[2][numberPlayers];
-		free = new int[numberPlayers];
 		current_spin_sectors = concatenate(spin_sectors_header, db.get_categories(round));
 		return;
 	}
@@ -132,17 +136,17 @@ class Game {
 		int response = gui.check_answer(db.get_answer(round, cat, questions[cat]));
 		if(response == 1){
 			// correct answer
-			message = "Player "+(currentPlayer+1)+" answered correctly. Go again!";
+			message = player_names[currentPlayer]+" ("+(currentPlayer+1)+") answered correctly. Go again!";
 			if(daily_double){points[round][currentPlayer]+=daily_n;}
 			else{ points[round][currentPlayer]+=100*(round+1)*(questions[cat]+1); }
 		} else if(response == 0){
 			// incorrect
-			message = "Player "+(currentPlayer+1)+" answered incorrectly. Player "+(currentPlayer+1)+"'s turn is over.";
+			message = player_names[currentPlayer]+" ("+(currentPlayer+1)+") answered incorrectly. "+player_names[currentPlayer]+" ("+(currentPlayer+1)+") turn is over.";
 			if(daily_double){points[round][currentPlayer]-=daily_n;}
 			nextplayer();
 		} else {
 			// timeout
-			message = "Player "+(currentPlayer+1)+" timed out. Player "+(currentPlayer+1)+"'s turn is over.";
+			message = player_names[currentPlayer]+" ("+(currentPlayer+1)+") timed out. "+player_names[currentPlayer]+" ("+(currentPlayer+1)+") turn is over.";
 			nextplayer();
 		}
 		questions[cat]++;
@@ -173,7 +177,7 @@ class Game {
 		int n = 0;
 		boolean invalid = true;
 		while(invalid){
-			n=gui.choose_category("Player "+(currentPlayer+1)+" Choose category: ", db.get_categories(round));
+			n=gui.choose_category(player_names[currentPlayer]+" ("+(currentPlayer+1)+") Choose category: ", db.get_categories(round));
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
@@ -186,7 +190,7 @@ class Game {
 		int n = 0;
 		boolean invalid = true;
 		while(invalid){
-			n=gui.choose_category(("Player "+((currentPlayer+1)%numberPlayers+1)+" Choose category for Player "+(currentPlayer+1)+": "), db.get_categories(round));
+			n=gui.choose_category((player_names[((currentPlayer+1)%numberPlayers)]+" ("+((currentPlayer+1)%numberPlayers+1)+") Choose category for "+player_names[currentPlayer]+" ("+(currentPlayer+1)+"): "), db.get_categories(round));
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
@@ -233,11 +237,11 @@ class Game {
 		}
 		// make winning message
 		String m = "";
-		if(maxplayers.size()==1){m="Player "+maxplayers.get(0)+" won with "+sum+" points!";}
+		if(maxplayers.size()==1){m=player_names[maxplayers.get(0)]+" ("+maxplayers.get(0)+") won with "+sum+" points!";}
 		else{
 			m="Players ";
-			for(int i=0; i<(maxplayers.size()-1);i++){m+= maxplayers.get(i)+", ";}
-			m+= "and "+(maxplayers.get(maxplayers.size()-1))+" won with "+sum+"points!";
+			for(int i=0; i<(maxplayers.size()-1);i++){m+= player_names[maxplayers.get(i)]+" ("+maxplayers.get(i)+"), ";}
+			m+= "and "+player_names[maxplayers.get(maxplayers.size()-1)]+" ("+(maxplayers.get(maxplayers.size()-1))+") won with "+sum+"points!";
 		}
 		gui.show_info(player_names, round, currentPlayer, m, points, free, spin_counter);
 	}
