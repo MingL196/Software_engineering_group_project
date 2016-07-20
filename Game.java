@@ -159,6 +159,7 @@ class Game {
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
+			gui.message("Please choose a different category");
 		}
 		category(n-1);
 	}
@@ -171,6 +172,7 @@ class Game {
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
+			gui.message("Please choose a different category");
 		}
 		category(n-1);
 	}

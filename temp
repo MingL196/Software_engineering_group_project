@@ -1,0 +1,13 @@
+I agree that "complexity does not increase with the introduction of every new class". However, as I have pointed out above, there are indeed types of changes that would merit a player class. I do not expect these changes, and even if these changes are needed, the amount of extra work needed in comparison to that of other class schemes is very little.
+
+You believe that "the game logic must ask questions, check answers, calculate player point values, run a timer, and more" are multiple disparate responsibilities.  
+With the exception of timer (which we implement in GUI) and perhaps check answers (which we decided to leave to the game host), I consider them all as "rules of the game".
+
+
+I feel that in this schema, changing our code would be easy.
+	If you need to change the game rules, change game logic.
+	If you need to change the graphics, change GUI.
+	If you need to change the underlying setting files, change database.
+
+
+
