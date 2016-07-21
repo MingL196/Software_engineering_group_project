@@ -21,7 +21,7 @@ class Game {
 
 	private int numberPlayers;
 	private int numberAI;
-	private boolean[] is_AI; //[player]
+	private Player_type_abstract[] is_AI; //[player]
 	private String[] player_names; //[player]
 	private int[][] points; //[round][player]
 	private int[] free; // [player]
@@ -65,11 +65,11 @@ class Game {
 		while(numberAI <0){ numberAI = gui.get_n("Please enter the number of AI controlled players: "); }
 		numberPlayers += numberAI;
 		// initialize class variables
-		is_AI = new boolean[numberPlayers]; 
+		is_AI = new Player_type_abstract[numberPlayers]; 
 		player_names = new String[numberPlayers]; 
 		for(int i=0; i<is_AI.length; i++){
-			if(i<numberAI){ is_AI[i]=true; player_names[i]="AI"; } 
-			else { is_AI[i]=false;player_names[i]="Player"; }
+			if(i<numberAI){ is_AI[i]=new AI(gui); player_names[i]="AI"; } 
+			else { is_AI[i]=new Human(gui);player_names[i]="Player"; }
 		}
 		points = new int[2][numberPlayers];
 		free = new int[numberPlayers];
@@ -94,17 +94,17 @@ class Game {
 
 	private int spin(){
 		int result = (int) (Math.random()*current_spin_sectors.length) % current_spin_sectors.length; 
-		gui.spin(current_spin_sectors,result);
-		gui.message(current_spin_sectors[result]);
+		is_AI[currentPlayer].spin(current_spin_sectors,result);
+		is_AI[currentPlayer].message(current_spin_sectors[result]);
 		spin_counter--;
 		return result;
 	}
 
 	private void category(int cat){
 		// show board
-		gui.show_board(round, cat, db.get_categories(round), questions);
+		is_AI[currentPlayer].show_board(round, cat, db.get_categories(round), questions);
 		// check questions left
-		if( questions[cat] > 4){gui.message("There are no more questions in this category. Please spin again."); return;}
+		if( questions[cat] > 4){is_AI[currentPlayer].message("There are no more questions in this category. Please spin again."); return;}
 		// check daily
 		boolean daily_double = false;
 		if(round == 0 && cat==daily[0][0] && questions[cat]==daily[0][1]){
@@ -121,19 +121,15 @@ class Game {
 				for(int j=questions[i]; j<5; j++){
 					pointsleft += 100*(round+1)*(questions[cat]+1);
 				}}
-				while(daily_n < 0 || daily_n > pointsleft){ 
-					daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(pointsleft)+"):"); 
-				}
+				daily_n = is_AI[currentPlayer].get_n("Daily double! Please enter your wager (1-"+(pointsleft)+"):", 0, pointsleft); 
 			} else {
-				while(daily_n < 0 || daily_n > (points[round][currentPlayer])){ 
-					daily_n = gui.get_n("Daily double! Please enter your wager (1-"+(points[round][currentPlayer])+"):"); 
-				}
+				daily_n = is_AI[currentPlayer].get_n("Daily double! Please enter your wager (1-"+(points[round][currentPlayer])+"):", 0, points[round][currentPlayer]); 
 			}
 		}
 		// ask question
-		gui.ask_question(timer, db.get_question(round, cat, questions[cat]));
+		is_AI[currentPlayer].ask_question(timer, db.get_question(round, cat, questions[cat]));
 		// check answer
-		int response = gui.check_answer(db.get_answer(round, cat, questions[cat]));
+		int response = is_AI[currentPlayer].check_answer(db.get_answer(round, cat, questions[cat]));
 		if(response == 1){
 			// correct answer
 			message = player_names[currentPlayer]+" ("+(currentPlayer+1)+") answered correctly. Go again!";
@@ -153,22 +149,20 @@ class Game {
 	}
 
 	private void lose(){
-		if(free[currentPlayer] == 0){
-			gui.message("No token. Lose a turn"); nextplayer(); return;
-		} else if(gui.yes_no_prompt("Do you want to use a token?") == 0){
-			gui.message("You chose not to use a token. Lose a turn"); nextplayer(); return;
+		if(free[currentPlayer] == 0){ is_AI[currentPlayer].message("No token. Lose a turn"); nextplayer(); return; } 
+		if(is_AI[currentPlayer].yes_no_prompt("Do you want to use a token?") == 0){
+			is_AI[currentPlayer].message("You chose not to use a token. Lose a turn"); nextplayer(); return;
 		}
-		gui.message("Spin again");
+		is_AI[currentPlayer].message("Spin again");
 		return;
 	}
 
 	private void free(){ 
-		gui.message("Free token. Spin again."); 
+		is_AI[currentPlayer].message("Free token. Spin again."); 
 		free[currentPlayer]++; 
 	}
 
 	private void bankrupt(){ 
-		gui.message("Bankrupt.");
 		points[round][currentPlayer] = 0; 
 		nextplayer(); 
 	}
@@ -177,31 +171,22 @@ class Game {
 		int n = 0;
 		boolean invalid = true;
 		while(invalid){
-			n=gui.choose_category(player_names[currentPlayer]+" ("+(currentPlayer+1)+") Choose category: ", db.get_categories(round));
+			n=is_AI[currentPlayer].choose_category(player_names[currentPlayer]+" ("+(currentPlayer+1)+") Choose category: ", db.get_categories(round), questions);
 			if(1 <= n && n <= 6){invalid = false;}
 			else{continue;}
 			if(questions[n-1]>4){invalid = true;}
-			if(invalid){gui.message("Please choose a different category");}
+			if(invalid){is_AI[currentPlayer].message("Please choose a different category");}
 		}
 		category(n-1);
 	}
 
 	private void opponent_choice(){
 		int n = 0;
-		boolean invalid = true;
-		while(invalid){
-			n=gui.choose_category((player_names[((currentPlayer+1)%numberPlayers)]+" ("+((currentPlayer+1)%numberPlayers+1)+") Choose category for "+player_names[currentPlayer]+" ("+(currentPlayer+1)+"): "), db.get_categories(round));
-			if(1 <= n && n <= 6){invalid = false;}
-			else{continue;}
-			if(questions[n-1]>4){invalid = true;}
-			if(invalid){gui.message("Please choose a different category");}
-		}
+		n=is_AI[((currentPlayer+1)%numberPlayers)].choose_category((player_names[((currentPlayer+1)%numberPlayers)]+" ("+((currentPlayer+1)%numberPlayers+1)+") Choose category for "+player_names[currentPlayer]+" ("+(currentPlayer+1)+"): "), db.get_categories(round), questions);
 		category(n-1);
 	}
 
-	private void spin_again(){
-		gui.message("Spin again");
-	}
+	private void spin_again(){}
 
 	private void update(){ 
 		// check end round
@@ -218,7 +203,7 @@ class Game {
 			round++; 
 			for(int i=0; i<questions.length; i++){questions[i]=0;};
 			current_spin_sectors = concatenate(spin_sectors_header, db.get_categories(round));
-			gui.message("\n\tNEW ROUND!\n");
+			is_AI[currentPlayer].message("\n\tNEW ROUND!\n");
 		} else if(endround && round == 1){
 			endGame=true;
 		}
@@ -243,7 +228,7 @@ class Game {
 			for(int i=0; i<(maxplayers.size()-1);i++){m+= player_names[maxplayers.get(i)]+" ("+maxplayers.get(i)+"), ";}
 			m+= "and "+player_names[maxplayers.get(maxplayers.size()-1)]+" ("+(maxplayers.get(maxplayers.size()-1))+") won with "+sum+"points!";
 		}
-		gui.show_info(player_names, round, currentPlayer, m, points, free, spin_counter);
+		is_AI[currentPlayer].show_info(player_names, round, currentPlayer, m, points, free, spin_counter);
 	}
 
 	/////////////////////////////////////////////

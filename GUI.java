@@ -415,7 +415,7 @@ class GUI_worker extends JFrame {
 	}
 
 	public void get_n(String message){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		frame.setContentPane(pane);
 		pane.revalidate();
@@ -439,7 +439,7 @@ class GUI_worker extends JFrame {
 		return;
 	}
 	public void get_s(String message){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		frame.setContentPane(pane);
 		pane.revalidate();
@@ -465,7 +465,7 @@ class GUI_worker extends JFrame {
 
 
 	public void yes_no_prompt(String message){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		frame.setContentPane(pane);
 		pane.revalidate();
@@ -489,7 +489,7 @@ class GUI_worker extends JFrame {
 		return;
 	}
 	public void check_answer(String message){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>Answer: "+message+"</h1></html>");
 		message_label2.setText("<html><h1>Did the Player answer correctly?</h1></html>");
 		frame.setContentPane(pane);
@@ -520,7 +520,7 @@ class GUI_worker extends JFrame {
 		return;
 	}
 	public void choose_category(String message, String[] categories){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		cat1_button.setText(categories[0]);
 		cat2_button.setText(categories[1]);
@@ -584,7 +584,7 @@ class GUI_worker extends JFrame {
 		return;
 	}
 	public void message(String message){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		frame.setContentPane(pane);
 		pane.revalidate();
@@ -614,7 +614,7 @@ class GUI_worker extends JFrame {
 		Font font = new Font("TimesRoman", Font.BOLD, 20);
 		textfield.setText("");
 		textfield.setFont(font);
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 		message_label2.setText("<html><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time left: "+timer+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></html>");
 		frame.setContentPane(pane);
@@ -641,7 +641,7 @@ class GUI_worker extends JFrame {
 		return;
 	}
 	public void show_info(String[] player_name, int round, int currentPlayer, String message, int[][] points, int[] free, int spin_counter){
-		message = message.replace("\n", "<p>");
+		message = message.replace("\n", "</h1><p><h1>");
 		message_label.setText("<html><h1>"+message+"</h1></html>");
 
 		String m2 = "Round: "+(round+1)+"&nbsp;&nbsp;&nbsp;&nbsp;Spins left: "+spin_counter+"&nbsp;&nbsp;&nbsp;&nbsp;"+player_name[currentPlayer]+" "+(currentPlayer+1)+"'s turn";
