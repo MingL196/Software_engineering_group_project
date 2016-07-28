@@ -1,83 +1,83 @@
-Category 1
-Question 1_1	Answer 1_1
-Question 1_2	Answer 1_2
-Question 1_3	Answer 1_3
-Question 1_4	Answer 1_4
-Question 1_5	Answer 1_5
+Animal
+Which animal was incorrectly rumored to bury its head in the sand when frightened?	Ostrich
+What is the smallest and most endagered species of sloth?	The pygmy three-toed sloth (Bradypus pygmaeus)
+What famous horse was the longest to hold the triple crown?	Secretariat
+What is a group of owls called?	A parliament
+A puggle is a cross between which two dog breeds?	Pug and Beagle
 
-Category 2
-Question 2_1	Answer 2_1
-Question 2_2	Answer 2_2
-Question 2_3	Answer 2_3
-Question 2_4	Answer 2_4
-Question 2_5	Answer 2_5
+Biology
+What is the largest organ of the human body?	Skin
+What does the acronym DNA stand for?	Deoxyribonucleic acid
+A person able to use both hands with equal skill is called what?	Ambidextrous
+Now extinct, what shark is thought to have been the largest ever on Earth?	Megalodon
+Most adults have how many canine teeth?	Four
 
-Category 3
-Question 3_1	Answer 3_1
-Question 3_2	Answer 3_2
-Question 3_3	Answer 3_3
-Question 3_4	Answer 3_4
-Question 3_5	Answer 3_5
+Chemistry
+Diamonds are made up almost entirely of what element?	Carbon
+What is the chemical symbol for Helium?	He
+How many hydrogen atoms are in one molecule of water?	Two
+What is the chemical formula for ozone?	O3
+What is the chemical symbol for table salt?	NaCl
 
-Category 4
-Question 4_1	Answer 4_1
-Question 4_2	Answer 4_2
-Question 4_3	Answer 4_3
-Question 4_4	Answer 4_4
-Question 4_5	Answer 4_5
+Computer
+In computer science, what does "GUI" stand for?	Graphical user interface
+In database programming, SQL is an acronym for what?	Structured Query Language
+CERN launched the very first website in what year?	1990
+When referring to computer memory, what does that acronym RAM stand for?	Random Access Memory
+What do the letters HTML, a markup language used to create web pages, stand for?	Hypertext Markup Language
 
-Category 5
-Question 5_1	Answer 5_1
-Question 5_2	Answer 5_2
-Question 5_3	Answer 5_3
-Question 5_4	Answer 5_4
-Question 5_5	Answer 5_5
+Food
+The taste that allows us to taste savory foods is called what?	Umami
+What is a traditional fermented Korean side dish made seasoned vegetables and salt?	Kimchi
+A tandoor is a type of what?	Oven
+Kopi luwak is a very expensive type of what?	Coffee
+Guinness beer was first brewed in which country?	Ireland
 
-Category 6
-Question 6_1	Answer 6_1
-Question 6_2	Answer 6_2
-Question 6_3	Answer 6_3
-Question 6_4	Answer 6_4
-Question 6_5	Answer 6_5
+Geography
+What is the capital of the Republic of Ireland?	Dublin
+Geelong is a port city located in what country?	Australia
+The Black Forest is located in what European country?	Germany
+What is the capital city of Croatia?	Zagreb
+What city is the capital of India?	New Delhi
 
-Category 7
-Question 7_1	Answer 7_1
-Question 7_2	Answer 7_2
-Question 7_3	Answer 7_3
-Question 7_4	Answer 7_4
-Question 7_5	Answer 7_5
+History
+Abraham Lincoln was assassinated in what year?	1865
+Who was the first austronaut to visit space twice?	Gus Grissom
+In what year was Nelson Mandela released from prison?	1990
+Ireland suffered the Great Famine beginning in 1845 due to the collapse of what crop?	Potato
+What type of bridge is the Golden Gate Bridge?	Suspension
 
-Category 8
-Question 8_1	Answer 8_1
-Question 8_2	Answer 8_2
-Question 8_3	Answer 8_3
-Question 8_4	Answer 8_4
-Question 8_5	Answer 8_5
+Literature
+What is the first book of the bible?	Genesis
+Which book was famously rejected by 12 publishers before finally being accepted by Bloomsbury?	Harry Potter and The Philosopher's Stone
+What is the name of Washington Iriving's 1819 short story about a man that fell asleep in the woods for 20 years?	Rip Van Winkle
+Who wrote the 1936 novel "Gone with the Wind"?	Margaret Mitchell
+Who declined the 1964 Nobel Prize for literature?	Jean-Paul Sartre
 
-Category 9
-Question 9_1	Answer 9_1
-Question 9_2	Answer 9_2
-Question 9_3	Answer 9_3
-Question 9_4	Answer 9_4
-Question 9_5	Answer 9_5
+Military
+The US military installation Area 51 is located in which state?	Nevada
+What is the slang military term for the distance of one kilometer?	Klick
+In which state of the United States would you find Fort Knox?	Kentucky
+What year did World War II end?	1945
+The second atomic bomb ever used in war-time was dropped on what city?	Nagasaki
 
-Category 10
-Question 10_1	Answer 10_1
-Question 10_2	Answer 10_2
-Question 10_3	Answer 10_3
-Question 10_4	Answer 10_4
-Question 10_5	Answer 10_5
+Movies
+What later "Star Wars" acctress had an early role in the movie "Léon: The Professional"?	Natalie Portman
+Robin Williams won an Academy Award for best supporting actor in which 1997 film about a South Boston janitor?	Good Will Hunting
+What is the name of Mickey Mouse´s dog?	Pluto
+Tom Hanks played "Captain Miller" in what legendary World War II movie?	Saving Private Ryan
+BB-8 is an astromech droid from what film franchise?	Star Wars
 
-Category 11
-Question 11_1	Answer 11_1
-Question 11_2	Answer 11_2
-Question 11_3	Answer 11_3
-Question 11_4	Answer 11_4
-Question 11_5	Answer 11_5
+Music
+In what city was Ludwig van Beethoven born?	Bonn, Electorate of Cologne
+In what year did Paul McCartney announce he was quitting the Beatles?	1970
+Where was the very first Hard Rock Cafe opened?	Piccadilly, London
+How many keys are on most baby grand pianos?	88
+New Orleans is known as the birthplace of what type of music?	Jazz
 
-Category 12
-Question 12_1	Answer 12_1
-Question 12_2	Answer 12_2
-Question 12_3	Answer 12_3
-Question 12_4	Answer 12_4
-Question 12_5	Answer 12_5
+Space
+Which is the closest galaxy to the milky way?	Andromeda galaxy
+Our solar system is located in what galaxy?	The Milky Way
+Who was the first human to travel into space?	Yuri Gagarin
+In what year did the Apollo 7 human spaceflight take place?	1968
+What is the smallest planet in our solar system?	Mercury

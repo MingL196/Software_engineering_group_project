@@ -239,7 +239,7 @@ class GUI_worker extends JFrame {
 
 	private JLabel message_label = new JLabel("<html><h1>Number of Players: </h1></html>");
 	private JLabel message_label2 = new JLabel("<html><h1> </h1></html>");
-	private JTextField get_n_text_field = new JTextField("1");
+	private JTextField get_n_text_field = new JTextField("50");
 	private JTextField get_s_text_field = new JTextField();
 	private JTextField textfield = new JTextField("");
 	private JButton continue_button = new JButton("Continue");
@@ -449,6 +449,8 @@ class GUI_worker extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.8;
+		c.anchor = GridBagConstraints.CENTER;
 		c.gridx = 0;
 		c.gridy = 0;
 		pane.add(message_label, c);
@@ -593,7 +595,7 @@ class GUI_worker extends JFrame {
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
-		c.fill = GridBagConstraints.VERTICAL;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		pane.add(message_label, c);

@@ -57,6 +57,9 @@ class Game {
 			daily[i][0] = (int) (Math.random()*(6))%(6);
 			daily[i][1] = (int) (Math.random()*(5))%(5);
 		}
+		// get spins per round
+		spins_per_round = gui.get_n("Please enter the number of spins per round: ");
+		while(spins_per_round <=0){ spins_per_round = gui.get_n("Please enter the number of spins per round: "); }
 		// get number of players
 		numberPlayers = 0;
 		while(numberPlayers <=0){ numberPlayers = gui.get_n("Please enter the number of human controlled players: "); }
