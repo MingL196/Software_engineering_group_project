@@ -60,6 +60,7 @@ class Game {
 		// get spins per round
 		spins_per_round = gui.get_n("Please enter the number of spins per round: ");
 		while(spins_per_round <=0){ spins_per_round = gui.get_n("Please enter the number of spins per round: "); }
+		spin_counter = spins_per_round;
 		// get number of players
 		numberPlayers = 0;
 		while(numberPlayers <=0){ numberPlayers = gui.get_n("Please enter the number of human controlled players: "); }
@@ -140,8 +141,9 @@ class Game {
 			else{ points[round][currentPlayer]+=100*(round+1)*(questions[cat]+1); }
 		} else if(response == 0){
 			// incorrect
-			message = player_names[currentPlayer]+" ("+(currentPlayer+1)+") answered incorrectly. "+player_names[currentPlayer]+" ("+(currentPlayer+1)+") turn is over.";
+			message=player_names[currentPlayer]+" ("+(currentPlayer+1)+") answered incorrectly. "+player_names[currentPlayer]+" ("+(currentPlayer+1)+") turn is over.";
 			if(daily_double){points[round][currentPlayer]-=daily_n;}
+			else{ points[round][currentPlayer]-=100*(round+1)*(questions[cat]+1); }
 			nextplayer();
 		} else {
 			// timeout
@@ -221,15 +223,16 @@ class Game {
 		// get list of players that won
 		ArrayList<Integer> maxplayers = new ArrayList<Integer>();
 		for(int i=0;i<points[0].length; i++){
-			if(sum == (points[0][i]+points[1][i])){maxplayers.add(i+1);}
+			if(sum == (points[0][i]+points[1][i])){maxplayers.add(i);}
 		}
 		// make winning message
 		String m = "";
-		if(maxplayers.size()==1){m=player_names[maxplayers.get(0)]+" ("+maxplayers.get(0)+") won with "+sum+" points!";}
-		else{
+		if(maxplayers.size()==1){
+			m=player_names[maxplayers.get(0)]+" ("+(maxplayers.get(0)+1)+") won with "+sum+" points!";
+		} else{
 			m="Players ";
-			for(int i=0; i<(maxplayers.size()-1);i++){m+= player_names[maxplayers.get(i)]+" ("+maxplayers.get(i)+"), ";}
-			m+= "and "+player_names[maxplayers.get(maxplayers.size()-1)]+" ("+(maxplayers.get(maxplayers.size()-1))+") won with "+sum+"points!";
+			for(int i=0; i<(maxplayers.size()-1);i++){m+= player_names[maxplayers.get(i)]+" ("+(maxplayers.get(i)+1)+"), ";}
+			m+= "and "+player_names[maxplayers.get(maxplayers.size()-1)]+" ("+(maxplayers.get(maxplayers.size()-1)+1)+") won with "+sum+"points!";
 		}
 		is_AI[currentPlayer].show_info(player_names, round, currentPlayer, m, points, free, spin_counter);
 	}
