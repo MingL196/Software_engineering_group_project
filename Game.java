@@ -96,11 +96,13 @@ class Game {
 		return;
 	}
 
+//	int result = 0;
 	private int spin(){
 		int result = (int) (Math.random()*current_spin_sectors.length) % current_spin_sectors.length; 
 		is_AI[currentPlayer].spin(current_spin_sectors,result);
 		is_AI[currentPlayer].message(current_spin_sectors[result]);
 		spin_counter--;
+//		result = (result+1)% current_spin_sectors.length;
 		return result;
 	}
 
