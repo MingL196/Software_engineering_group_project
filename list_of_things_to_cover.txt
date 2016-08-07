@@ -1,0 +1,69 @@
+
+I created a version of the game that will always land on the next section of
+the wheel for the purpose of the presentation. It is called
+triviopoly_sequential.jar.
+
+
+In the first part of the video, you listed off the features without showing,
+and then went and showed how you played the game.
+
+I suggest replacing the first part of the video with a demo using a 
+triviopoly_sequential.jar to make sure that all parts of the game are shown. 
+(If you don't want to use triviopoly_sequential.jar, you can splice together video parts)
+
+List of things to cover:
+
+1. triviopoly_sequential.jar.
+	For demonstration purposes, we will first show a version where we
+	changed the random spin to sequential spin. At the end, we will show
+	the final version of the game with the random spin
+	As you play, you will introduce:
+
+	1. Choose the number of spins per round. 
+		Requirements specifiy 50
+		Game default is 50
+		For demonstration purposes, set lower (~6)
+
+	2. Number of human controlled players and AI controlled players
+		Extra feature
+		AI will auto answer places where normally players need to input a prompt
+		For now, set Human to 2, AI to 0
+
+	3. Rename the players
+		Extra feature
+
+	4. Choose settings file
+		Default settings file will load a settings file that is packaged inside the game's jar file
+		You can choose to load in custom settings file, example: sample_settings.txt, default_settings.txt
+			Settings file format:
+				12 groups of 6 non-empty lines
+				The first line of each category specifies the category name
+				The next five lines are the question and answer separated by a tab
+				Answer can be missing, will be replaced with empty string
+		Load in sample_settings.txt
+
+	5. Spin
+		Animation can be skipped if needed
+
+	6. LOSE TURN
+		mention token
+		next player
+	7. FREE TURN
+		mention token
+	8. BANKRUPT
+	9. PLAYER'S CHOICE
+		mention how we check correct answer
+	10. OPPONENT'S CHOICE
+	11. SPIN AGAIN
+	12. Category #
+
+	Mention Daily double:
+			Bet money
+
+2. triviopoly_sequential.jar
+	Showcase default settings file and default names
+		Categories show up in spin as well
+	Use 10 AI, 1 human, to showcase places where AI differs from human
+
+3. triviopoly_final.jar
+	Add current video where you play the game to the end of this new video
