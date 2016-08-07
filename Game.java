@@ -96,16 +96,16 @@ class Game {
 		return;
 	}
 
-//	int result = 0;
+	int result = 0;
 	private int spin(){
-		int result = (int) (Math.random()*current_spin_sectors.length) % current_spin_sectors.length; 
+//		int result = (int) (Math.random()*current_spin_sectors.length) % current_spin_sectors.length; 
 		is_AI[currentPlayer].spin(current_spin_sectors,result);
 		is_AI[currentPlayer].message(current_spin_sectors[result]);
 		spin_counter--;
-//		int temp = result;
-//		result = (result+1)% current_spin_sectors.length;
-//		return temp;
-		return result;
+		int temp = result;
+		result = (result+1)% current_spin_sectors.length;
+		return temp;
+//		return result;
 	}
 
 	private void category(int cat){
@@ -163,6 +163,7 @@ class Game {
 			is_AI[currentPlayer].message("You chose not to use a token. Lose a turn"); nextplayer(); return;
 		}
 		is_AI[currentPlayer].message("Spin again");
+		free[currentPlayer]--;
 		return;
 	}
 
